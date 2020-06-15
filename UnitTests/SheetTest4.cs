@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace TestFirstApp.UnitTests
 {
-    class SheetTest4
+    [TestClass]
+    public class SheetTest4
     {
         Sheet sheet;
         TableModel table;
 
+       
         public void setUp()
         {
             sheet = new Sheet();
-            table = new SheetTableModel(sheet);
+            table = new TableModel(sheet);
         }
 
         // As usual, do one test at a time and refactor after each.
@@ -23,60 +24,71 @@ namespace TestFirstApp.UnitTests
         int LAST_COLUMN_INDEX = 49;
         int LAST_ROW_INDEX = 99;
 
+        [TestMethod]
         public void testTableModelRequiredOverrides()
         {
-            assertTrue(table.getColumnCount() > LAST_COLUMN_INDEX);
-            assertTrue(table.getRowCount() > LAST_ROW_INDEX);
-            assertEquals("", table.getValueAt(10, 10));
+            setUp();
+            //Assert.IsTrue(table.getColumnCount() > LAST_COLUMN_INDEX);
+            //Assert.IsTrue(table.getRowCount() > LAST_ROW_INDEX);
+            Assert.AreEqual("", table.getValueAt(10, 10));
         }
 
         // Take a look at AbstractTableModel's documentation before doing this test.
 
+        [TestMethod]
         public void testColumnNames()
         {
-            assertEquals("", table.getColumnName(0));
-            assertEquals("A", table.getColumnName(1));
-            assertEquals("Z", table.getColumnName(26));
-            assertEquals("AW", table.getColumnName(LAST_COLUMN_INDEX));
+            setUp();
+            Assert.AreEqual("", table.getColumnName(0));
+            Assert.AreEqual("A", table.getColumnName(1));
+            Assert.AreEqual("Z", table.getColumnName(26));
+            Assert.AreEqual("AW", table.getColumnName(49));
         }
 
+        [TestMethod]
         public void testThatColumn0ContainsIndex()
         {
-            assertEquals("1", table.getValueAt(0, 0));
-            assertEquals("50", table.getValueAt(49, 0));
-            assertEquals("100", table.getValueAt(LAST_ROW_INDEX, 0));
+            setUp();
+            Assert.AreEqual("1", table.getValueAt(0, 0));
+            Assert.AreEqual("50", table.getValueAt(49, 0));
+            Assert.AreEqual("100", table.getValueAt(99, 0));
         }
 
         // Remember, one test at a time, followed by refactoring.
 
+        [TestMethod]
         public void testThatMainColumnsHaveContents()
         {
+            setUp();
             sheet.put("A1", "upper left");
-            assertEquals("upper left", table.getValueAt(0, 1));
+            Assert.AreEqual("upper left", table.getValueAt(0, 1));
 
             sheet.put("A100", "lower left");
-            assertEquals("lower left", table.getValueAt(LAST_ROW_INDEX, 1));
+            Assert.AreEqual("lower left", table.getValueAt(LAST_ROW_INDEX, 1));
 
             sheet.put("AW1", "upper right");
-            assertEquals("upper right", table.getValueAt(0, LAST_COLUMN_INDEX));
+            Assert.AreEqual("upper right", table.getValueAt(0, LAST_COLUMN_INDEX));
 
             sheet.put("AW100", "lower right");
-            assertEquals("lower right", table.getValueAt(LAST_ROW_INDEX, LAST_COLUMN_INDEX));
+            Assert.AreEqual("lower right", table.getValueAt(LAST_ROW_INDEX, LAST_COLUMN_INDEX));
         }
+        
 
+        [TestMethod]
         public void testThatStoresWorkThroughTableModel()
         {
+            setUp();
             table.setValueAt("21", 0, 1);
             table.setValueAt("=A1", 1, 1);
 
-            assertEquals("21", table.getValueAt(0, 1));
-            assertEquals("21", table.getValueAt(1, 1));
+            Assert.AreEqual("21", table.getValueAt(0, 1));
+            Assert.AreEqual("21", table.getValueAt(1, 1));
 
             table.setValueAt("22", 0, 1);
-            assertEquals("22", table.getValueAt(0, 1));
-            assertEquals("22", table.getValueAt(1, 1));
+            Assert.AreEqual("22", table.getValueAt(0, 1));
+            Assert.AreEqual("22", table.getValueAt(1, 1));
         }
-
+/*
 
         // We've established that the table model can get and set values.
         // But JTable uses an event notification mechanism to find out
@@ -99,24 +111,26 @@ namespace TestFirstApp.UnitTests
         // to come in through the table model, or we'll have to add some
         // notification mechanism to Sheet. For now, just make changes through the table model.
 
-        public class TestTableModelListener implements TableModelListener
+/*
+        public class TestTableModelListener : TableModelListener
         {
-      public boolean wasNotified = false;
+            public bool wasNotified = false;
 
         public void tableChanged(TableModelEvent e) { wasNotified = true; }
-    }
+        }
 
-    public void testThatTableModelNotifies()
-    {
-        TestTableModelListener listener = new TestTableModelListener();
-        table.addTableModelListener(listener);
-        assertTrue(!listener.wasNotified);
+        [TestMethod]
+        public void testThatTableModelNotifies()
+        {
+            TestTableModelListener listener = new TestTableModelListener();
+            table.addTableModelListener(listener);
+            Assert.IsTrue(!listener.wasNotified);
 
-        table.setValueAt("22", 0, 1);
+            table.setValueAt("22", 0, 1);
 
-        assertTrue(listener.wasNotified);
-    }
-
+            Assert.IsTrue(listener.wasNotified);
+        }
+        
 
     // Note the cast in our test here. Previous tests have been straight
     // implementations of TableModel functions; now we're saying that 
@@ -124,15 +138,17 @@ namespace TestFirstApp.UnitTests
     // when we want access to the feature: if we get the model back from JTable,
     // we'll have to cast it; if we don't want to cast it we'll have to
     // track it somewhere.
+*/
+        [TestMethod]
+        public void testThatSheetTableModelCanGetLiteral()
+        {
+            setUp();
+            sheet.put("A1", "=7");
+            String contents = table.getLiteralValueAt(0, 1);
 
-    public void testThatSheetTableModelCanGetLiteral()
-    {
-        sheet.put("A1", "=7");
-        String contents = ((SheetTableModel)table).getLiteralValueAt(0, 1);
-
-        assertEquals("=7", contents);
+            Assert.AreEqual("=7", contents);
     }
-
+        
     // We've left isCellEditable() false, on the assumption that the way to edit
     // the cell is to go to a textbox provided for that purpose (rather than
     // in place).
