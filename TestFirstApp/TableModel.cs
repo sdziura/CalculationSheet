@@ -7,6 +7,11 @@ namespace TestFirstApp
     public class TableModel
     {
         Sheet sheet;
+        int selectedRow;
+        int selectedColumn;
+
+        public int SelectedRow { get => selectedRow; set => selectedRow = value; }
+        public int SelectedColumn { get => selectedColumn; set => selectedColumn = value; }
 
         public TableModel()
         {
@@ -16,6 +21,15 @@ namespace TestFirstApp
         public TableModel(Sheet _sheet)
         {
             sheet = _sheet;
+        }
+
+        public string getAddress(int row, int col)
+        {
+            string address = "";
+            if (col == 0) return address;
+            else address = getColumnName(col) + (row + 1).ToString();
+            return address;
+
         }
 
         public string getColumnName(int col)
@@ -62,6 +76,12 @@ namespace TestFirstApp
 
             return sheet.getLiteral(address);
 
+        }
+
+        public void changeSelection(int row, int col)
+        {
+            SelectedRow = row;
+            SelectedColumn = col;
         }
     }
 }
