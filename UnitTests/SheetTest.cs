@@ -12,8 +12,6 @@ namespace TestFirstApp.UnitTests
             Assert.AreEqual("", sheet.get("A1"));
             Assert.AreEqual("", sheet.get("ZX347"));
         }
-
-        // Implement each test before going to the next one.
         
         [TestMethod]
         public void testThatTextCellsAreStored()
@@ -30,8 +28,6 @@ namespace TestFirstApp.UnitTests
             sheet.put(theCell, "");
             Assert.AreEqual("", sheet.get(theCell));
         }
-
-        // Implement each test before going to the next one; then refactor.
 
         [TestMethod]
         public void testThatManyCellsExist()
@@ -50,10 +46,6 @@ namespace TestFirstApp.UnitTests
             Assert.AreEqual("Second", sheet.get("X27"), "X27 same");
             Assert.AreEqual("Third", sheet.get("ZX901"), "ZX901 same");
         }
-
-
-        // Implement each test before going to the next one.
-        // You can split this test case if it helps.
 
         [TestMethod]
         public void testThatNumericCellsAreIdentifiedAndStored()
@@ -77,8 +69,6 @@ namespace TestFirstApp.UnitTests
             Assert.AreEqual(" ", sheet.get(theCell));
         }
 
-        // Refactor before going to each succeeding test.
-
         [TestMethod]
         public void testThatWeHaveAccessToCellLiteralValuesForEditing()
         {
@@ -91,11 +81,8 @@ namespace TestFirstApp.UnitTests
             sheet.put(theCell, " 1234 ");
             Assert.AreEqual(" 1234 ", sheet.getLiteral(theCell));
 
-            sheet.put(theCell, "=7"); // Foreshadowing formulas:)
+            sheet.put(theCell, "=7"); // Foreshadowing formulas
             Assert.AreEqual("=7", sheet.getLiteral(theCell));
-        }
-        
-
-        // We'll talk about "get" and formulas next time.
+        }      
     }
 }

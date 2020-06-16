@@ -9,7 +9,6 @@ namespace TestFirstApp
         private StringReader _reader;
         private readonly IEnumerator<Token> _tokens;
 
-
         public IEnumerable<Token> Scan(string expression)
         {
             _reader = new StringReader(expression);
@@ -63,10 +62,8 @@ namespace TestFirstApp
                             break;
                         default:
                         throw new Exception("Unknown character in expression: " + c);
-
                     }
             }
-
             return tokens;
         }
 
@@ -112,6 +109,5 @@ namespace TestFirstApp
 
             return address;
         }
-
     }
 }

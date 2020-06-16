@@ -10,8 +10,8 @@ namespace TestFirstApp.UnitTests
     {
 
         Sheet sheet;
-        TableModel model;  // New for part 5
-        SheetFrame frame;       // New for part 5
+        TableModel model;  
+        SheetFrame frame;       
 
         public void setUp()
         {
@@ -30,54 +30,7 @@ namespace TestFirstApp.UnitTests
             Assert.IsNotNull(frame.Editor);
             Assert.AreSame(model, frame.Table);
         }
-       /*
-        [TestMethod]
-        public void testThatRowAndColumnSelectionAllowed()
-        {
-            setUp();
-            Assert.IsTrue(frame.Table.getRowSelectionAllowed());
-            Assert.IsTrue((frame.Table.getColumnSelectionAllowed());
-        } 
-
-        
-        public class TestSelectionListener : ListSelectionListener
-        {
-            
-            public bool wasNotified = false;
-
-            public TestSelectionListener() { }
-
-            public void valueChanged(ListSelectionEvent e)
-            {
-                wasNotified = true;
-            }
-        }
-        
-        // I expect this test to pass; it verifies how I think listeners work.
-        // You might call it a spike and omit it.
-
-        [TestMethod]
-        public void testThatSelectionsNotifyListeners()
-        {
-            setUp();
-            TestSelectionListener listener = new TestSelectionListener();
-            frame.table.getSelectionModel().addListSelectionListener(listener);
-
-            Assert.IsTrue(!listener.wasNotified);
-
-            frame.table.changeSelection(3, 2, false, false);
-
-            Assert.IsTrue(listener.wasNotified);
-
-
-            listener.wasNotified = false;
-            frame.table.changeSelection(1, 1, false, false);
-            Assert.IsTrue(listener.wasNotified);
-        }*/
-        
-        // If you need info on hooking up a selection listener, see 
-        // http://java.sun.com/docs/books/tutorial/uiswing/components/table.html#selection
-
+       
         [TestMethod]
         public void testThatLabelIsUpdatedWhenSelectionChanges()
         {
@@ -91,9 +44,6 @@ namespace TestFirstApp.UnitTests
             Assert.AreEqual("J11", frame.Label);
         }
 
-        // You might add a main() routine to SheetFrame and
-        // see how the GUI is looking.
-
         [TestMethod]
         public void testThatEditorSeesLiteralValue()
         {
@@ -103,11 +53,6 @@ namespace TestFirstApp.UnitTests
 
             Assert.AreEqual("=7", frame.Editor);
         }
-
-
-        // We would like to have a way to programmatically let the 
-        // text field click "Enter", but I don't see a mechanism.
-        // So we'll use the okButton instead.
 
         [TestMethod]
         public void testThatEditedValueGetsSaved()
@@ -122,7 +67,6 @@ namespace TestFirstApp.UnitTests
             Assert.AreEqual("8", frame.Table.getValueAt(1, 1));
         }
 
-
         [TestMethod]
         public void testThatValuePropagationWorks()
         {
@@ -135,9 +79,6 @@ namespace TestFirstApp.UnitTests
             frame.Table.setValueAt("10", 0, 1);
             Assert.AreEqual("12", frame.Table.getValueAt(2, 2));
         }
-
-
-        // See discussion below on acceptance tests.
 
         [TestMethod]
         public void testAcceptanceTest1()
@@ -164,7 +105,7 @@ namespace TestFirstApp.UnitTests
             frame.saveToCell();
 
             Assert.AreEqual("30", frame.Table.getValueAt(1, 1));
-        }/**/
+        }
     }
 }
 

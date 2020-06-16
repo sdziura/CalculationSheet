@@ -56,7 +56,6 @@ namespace TestFirstApp
             else address = getColumnName(col) + (row + 1).ToString();
 
             return sheet.get(address);
-
         }
 
         public void setValueAt(string value, int row, int col)
@@ -75,7 +74,6 @@ namespace TestFirstApp
             else address = getColumnName(col) + (row + 1).ToString();
 
             return sheet.getLiteral(address);
-
         }
 
         public void changeSelection(int row, int col)

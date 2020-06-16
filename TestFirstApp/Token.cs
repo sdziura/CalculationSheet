@@ -11,7 +11,6 @@ namespace TestFirstApp
 
     public class OperatorToken : Token
     {
-
     }
     public class PlusToken : OperatorToken
     {
